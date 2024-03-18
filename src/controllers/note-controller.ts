@@ -19,6 +19,8 @@ const CreateNote = async (req: Request, res: Response) => {
   const auth = req.auth;
   let file: any = req.file;
 
+  //console.log(req.body);
+
   let createdNote: any = null;
 
   try {
@@ -43,7 +45,7 @@ const CreateNote = async (req: Request, res: Response) => {
       content: body.content,
       category: body.category || "General",
       document: documentUri,
-      reminders: body.reminders || [],
+      reminders: body.reminders || "",
       createdBy: auth._id,
     });
 

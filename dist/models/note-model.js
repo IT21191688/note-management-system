@@ -15,25 +15,28 @@ const NoteSchema = new mongoose_1.default.Schema({
     },
     category: {
         type: String,
-        default: "General",
+        default: "general",
     },
     document: {
         type: String,
         required: [false, "Note document is not required!"],
     },
-    reminders: [
-        {
-            date: {
-                type: Date,
-                required: true,
-            },
-            status: {
-                type: String,
-                enum: ["pending", "completed"],
-                default: "pending",
+    reminders: {
+        date: {
+            type: Date,
+            required: function () {
+                return this.category === "reminder";
             },
         },
-    ],
+        status: {
+            type: String,
+            enum: ["pending", "completed"],
+            default: "pending",
+            required: function () {
+                return this.category === "reminder";
+            },
+        },
+    },
     createdBy: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         ref: "User",

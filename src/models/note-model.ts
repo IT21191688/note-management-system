@@ -1,6 +1,18 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 
-const NoteSchema = new mongoose.Schema(
+interface Note extends Document {
+  title: string;
+  content: string;
+  category: string;
+  document?: string;
+  reminders: {
+    date?: Date;
+    status?: string;
+  };
+  createdBy: mongoose.Schema.Types.ObjectId;
+}
+
+const NoteSchema = new mongoose.Schema<Note>(
   {
     title: {
       type: String,
@@ -12,25 +24,28 @@ const NoteSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      default: "General",
+      default: "general",
     },
     document: {
       type: String,
       required: [false, "Note document is not required!"],
     },
-    reminders: [
-      {
-        date: {
-          type: Date,
-          required: true,
-        },
-        status: {
-          type: String,
-          enum: ["pending", "completed"],
-          default: "pending",
+    reminders: {
+      date: {
+        type: Date,
+        required: function () {
+          return this.category === "reminder";
         },
       },
-    ],
+      status: {
+        type: String,
+        enum: ["pending", "completed"],
+        default: "pending",
+        required: function () {
+          return this.category === "reminder";
+        },
+      },
+    },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -42,4 +57,4 @@ const NoteSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("Note", NoteSchema);
+export default mongoose.model<Note>("Note", NoteSchema);

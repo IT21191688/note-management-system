@@ -16,6 +16,7 @@ const CreateNote = async (req, res) => {
     const body = req.body;
     const auth = req.auth;
     let file = req.file;
+    //console.log(req.body);
     let createdNote = null;
     try {
         let documentUri = ""; // Initialize document URI variable
@@ -32,7 +33,7 @@ const CreateNote = async (req, res) => {
             content: body.content,
             category: body.category || "General",
             document: documentUri,
-            reminders: body.reminders || [],
+            reminders: body.reminders || "",
             createdBy: auth._id,
         });
         createdNote = await note_service_1.default.save(newNote, null);
