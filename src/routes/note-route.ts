@@ -12,7 +12,7 @@ import {
 import constants from "../utills/constants";
 
 const NoteRouter = Router();
-
+//
 NoteRouter.post(
   "/createNote",
   userMiddleware.authorize([constants.USER.ROLES.USER]),
