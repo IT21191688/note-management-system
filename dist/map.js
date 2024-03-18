@@ -3,9 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const note_route_1 = __importDefault(require("./routes/note-route"));
 const user_route_1 = __importDefault(require("./routes/user-route"));
 const constants_1 = __importDefault(require("./utills/constants"));
 const requestMappings = (app) => {
     app.use(constants_1.default.API.PREFIX.concat("/user"), user_route_1.default);
+    app.use(constants_1.default.API.PREFIX.concat("/note"), note_route_1.default);
 };
 exports.default = requestMappings;
