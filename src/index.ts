@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { connectDB } from "./config/database-config";
 import errorHandlerMiddleware from "./utills/error/error.middleware";
 import requestMappings from "./map";
+import { runDailyJob } from "./utills/cronjob/cronjob";
 
 const app: Express = express();
 
@@ -21,6 +22,8 @@ app.use(
 
 requestMappings(app);
 app.use(errorHandlerMiddleware);
+
+runDailyJob();
 
 const start = async () => {
   const port = process.env.PORT || 5000;

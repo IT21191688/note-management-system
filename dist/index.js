@@ -9,6 +9,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const database_config_1 = require("./config/database-config");
 const error_middleware_1 = __importDefault(require("./utills/error/error.middleware"));
 const map_1 = __importDefault(require("./map"));
+const cronjob_1 = require("./utills/cronjob/cronjob");
 const app = (0, express_1.default)();
 dotenv_1.default.config();
 app.use(express_1.default.json());
@@ -19,6 +20,7 @@ app.use((0, cors_1.default)({
 }));
 (0, map_1.default)(app);
 app.use(error_middleware_1.default);
+(0, cronjob_1.runDailyJob)();
 const start = async () => {
     const port = process.env.PORT || 5000;
     try {

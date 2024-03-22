@@ -36,6 +36,7 @@ const CreateNote = async (req, res) => {
             reminders: body.reminders || "",
             createdBy: auth._id,
         });
+        //console.log(body.reminders);
         createdNote = await note_service_1.default.save(newNote, null);
         (0, responce_1.default)(res, true, http_status_codes_1.StatusCodes.CREATED, "Note created successfully!", createdNote);
     }

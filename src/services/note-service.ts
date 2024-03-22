@@ -18,6 +18,14 @@ const findAllByCreatedBy = (createdBy: any) => {
   });
 };
 
+const updateNoteStatus = async (noteId: any, status: string) => {
+  return await Note.findByIdAndUpdate(
+    noteId,
+    { $set: { "reminders.status": status } },
+    { new: true }
+  );
+};
+
 const findNoteById = (id: any) => {
   return Note.findOne({ _id: id });
 };
@@ -37,4 +45,5 @@ export default {
   findAllNotes,
   updateNoteDetails,
   deleteNoteById,
+  updateNoteStatus,
 };

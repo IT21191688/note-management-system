@@ -49,6 +49,8 @@ const CreateNote = async (req: Request, res: Response) => {
       createdBy: auth._id,
     });
 
+    //console.log(body.reminders);
+
     createdNote = await noteService.save(newNote, null);
 
     CustomResponse(

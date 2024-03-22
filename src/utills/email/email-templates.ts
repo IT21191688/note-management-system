@@ -47,6 +47,37 @@ const UserRegisteredEmail = (data: any) => {
     `;
 };
 
+const createReminderEmail = (note: any) => {
+  // Construct the email body with note details
+  return `
+    <html>
+      <head>
+        <style>
+          /* Add your CSS styles here */
+          body {
+            font-family: Arial, sans-serif;
+          }
+          .note-details {
+            margin-bottom: 10px;
+          }
+        </style>
+      </head>
+      <body>
+        <h2>Reminder: ${note.title}</h2>
+        <div class="note-details">
+          <p><strong>Title:</strong> ${note.title}</p>
+          <p><strong>Content:</strong> ${note.content}</p>
+          <p><strong>Category:</strong> ${note.category}</p>
+          <p><strong>Reminder Date:</strong> ${note.reminders.date}</p>
+          <p><strong>Status:</strong> ${note.reminders.status}</p>
+        </div>
+        <!-- Add any additional details or formatting here -->
+      </body>
+    </html>
+  `;
+};
+
 export default {
   UserRegisteredEmail,
+  createReminderEmail,
 };
